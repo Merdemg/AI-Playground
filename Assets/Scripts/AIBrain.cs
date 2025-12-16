@@ -59,6 +59,9 @@ public class AIBrain : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, $"State: {_stateMachine.CurrentState.GetType().Name}");
 #endif
+
+            // Allow the current state to draw its own specific debug info
+            _stateMachine.CurrentState.OnGizmos(this);
         }
     }
 
@@ -95,6 +98,8 @@ public class StateIdle : IState
     }
 
     public void Exit(AIBrain brain) { }
+
+    public void OnGizmos(AIBrain brain) { }
 }
 
 public class StateGather : IState
@@ -109,6 +114,7 @@ public class StateGather : IState
         }
     }
     public void Exit(AIBrain brain) { }
+    public void OnGizmos(AIBrain brain) { }
 }
 
 public class StateFlee : IState
@@ -133,6 +139,8 @@ public class StateFlee : IState
     {
         brain.Agent.speed = 3.5f; // Reset speed
     }
+
+    public void OnGizmos(AIBrain brain) { }
 }
 
 // extension method to AIBrain or StateMachine to make switching easier
