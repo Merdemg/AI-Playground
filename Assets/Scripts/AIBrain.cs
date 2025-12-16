@@ -117,32 +117,6 @@ public class StateGather : IState
     public void OnGizmos(AIBrain brain) { }
 }
 
-public class StateFlee : IState
-{
-    public void Enter(AIBrain brain)
-    {
-        Debug.Log("Entering Flee - RUN!");
-        brain.Agent.isStopped = false;
-        brain.Agent.speed = 6f; // Run faster
-    }
-
-    public void Execute(AIBrain brain)
-    {
-        // If safe, go back to idle
-        if (!brain.IsThreatDetected())
-        {
-            brain.ChangeState(brain.IdleState);
-        }
-    }
-
-    public void Exit(AIBrain brain)
-    {
-        brain.Agent.speed = 3.5f; // Reset speed
-    }
-
-    public void OnGizmos(AIBrain brain) { }
-}
-
 // extension method to AIBrain or StateMachine to make switching easier
 //public static class AIStateExtensions
 //{
